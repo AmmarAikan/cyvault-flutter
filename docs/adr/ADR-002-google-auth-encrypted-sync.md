@@ -1,7 +1,7 @@
 # ADR-002: Google identity and end-to-end encrypted synchronization
 
-- Status: Proposed; implementation and deployment are blocked on owner approval
-  of an existing or new Google project.
+- Status: Accepted; the owner approved and provisioned the dedicated production
+  Firebase project described below.
 - Date: 2026-10-28
 - Decision owners: CyVault maintainer and product owner.
 - Scope: v2 Google identity, account linking, encrypted synchronization,
@@ -72,24 +72,27 @@ and [FlutterFire setup](https://firebase.google.com/docs/flutter/setup).
 
 ## Project and environment boundary
 
-The production project must be owned or administered by
-`ammaraiqanccna1@gmail.com`. Before any creation, the owner must inspect both
-the Firebase and Google Cloud project lists. If no suitable project exists, the
-proposed display name is **CyVault Production**. A candidate immutable project
-ID will be checked for global availability and separately approved; no ID is
-reserved by this ADR.
+The production project is owned or administered by
+`ammaraiqanccna1@gmail.com`. The existing Firebase and Google Cloud inventory
+was reviewed before provisioning. Neither existing project contained the
+CyVault Android application, so the owner approved a dedicated project:
+
+- Display name: **CyVault**
+- Immutable project ID: `cyvault-prod-ammaraikan`
+- Android application ID: `com.ammaraikan.cyvault`
+- Billing boundary: Spark only; no billing account is linked
+- Analytics: disabled
 
 The immutable Android application ID is `com.ammaraikan.cyvault`. A separate
 Firebase project is recommended for emulator/development only if live
 integration testing later requires it; local CI continues to use a `demo-*`
 emulator project and cannot reach production.
 
-The proposed Firestore location is `eur3` (Europe multi-region) because the
-current owner and build environment are in Europe and multi-region increases
-availability. The final choice must be confirmed before provisioning because a
-Firestore location cannot be changed later. Firebase documents `eur3` as
-Belgium/Netherlands with a Finland witness; see
-[Cloud Firestore locations](https://firebase.google.com/docs/firestore/enterprise/locations).
+The owner approved and provisioned the default Cloud Firestore database as
+Standard edition in Native mode with the free tier at `me-central2` (Dammam,
+Saudi Arabia). The regional location keeps data close to the expected user base
+and cannot be changed after provisioning. See
+[Cloud Firestore locations](https://firebase.google.com/docs/firestore/locations).
 
 ## Authentication and vault state machine
 
@@ -337,14 +340,20 @@ deployment evidence. See [Web Cryptography Level 2](https://www.w3.org/TR/webcry
   user-controlled recovery path.
 - No release may claim cloud recovery of a forgotten master password.
 
-## Required approvals before implementation touches production
+## Approval record and remaining release approvals
 
-1. Confirm the existing Firebase, Google Cloud, and Play Console inventory for
-   `ammaraiqanccna1@gmail.com`.
-2. Select an existing project or approve a new display name and globally unique
-   project ID.
-3. Confirm the immutable Firestore location (`eur3` proposed).
-4. Confirm Spark-only operation. Any Blaze/Cloud Functions proposal is a later,
-   separate approval.
-5. Review the final Arabic/English privacy text, Data Safety declarations, and
-   account-deletion process before Play submission.
+Approved on 2026-10-28:
+
+1. The Firebase and Google Cloud inventory for
+   `ammaraiqanccna1@gmail.com` was reviewed.
+2. The dedicated `cyvault-prod-ammaraikan` project was approved and created.
+3. The immutable Firestore location `me-central2` was approved and provisioned.
+4. Spark-only operation without Billing, Cloud Functions, or Analytics was
+   approved.
+
+Still required before Play submission:
+
+1. Confirm Play Console inventory and complete the owner's registration and
+   identity steps if needed.
+2. Review the final Arabic/English privacy text, Data Safety declarations, and
+   account-deletion process.
