@@ -5,6 +5,12 @@ into a framework. Riverpod is the only state/dependency system; go_router is the
 only router. Widgets call controllers, controllers call repositories/services,
 and domain code does not import widgets.
 
+This document describes the shipped offline v1 architecture. The proposed v2
+Google identity, encrypted synchronization, and sharing boundaries are recorded
+in [ADR-002](adr/ADR-002-google-auth-encrypted-sync.md) and
+[ADR-003](adr/ADR-003-sharing-cryptography.md); they are not shipped features
+until their implementation PRs pass their separate gates.
+
 ```mermaid
 flowchart LR
   UI[Material 3 UI] --> P[Riverpod providers]
