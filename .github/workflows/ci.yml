@@ -17,10 +17,17 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 35
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
-      - uses: actions/setup-java@v4
+      - name: Reclaim runner disk for Android native toolchains
+        run: |
+          # CyVault's native SQLite dependency requires an NDK and CMake. The
+          # hosted image also contains large toolchains this job never uses.
+          sudo rm -rf /usr/share/dotnet /opt/ghc /usr/local/.ghcup
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+          df -h /
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '17'
