@@ -37,6 +37,30 @@ Increment both intentionally for releases.
    signing certificate before upload. The local unsigned/debug-key release is
    never uploadable.
 
+## Firebase and Google Sign-In certificates
+
+CyVault uses Firebase project `cyvault-prod-ammaraikan` and Android application
+ID `com.ammaraikan.cyvault`. The ignored `google-services.json` is restored in
+CI from the encrypted repository secret
+`FIREBASE_ANDROID_CONFIG_BASE64`; never paste that secret into logs or commit a
+local copy.
+
+Google Sign-In authorizes a Firebase UID only. It does not replace the master
+password, recover it, or decrypt the vault. The Ubuntu debug certificate is
+registered solely for controlled tester APKs. Before publishing:
+
+1. Open **Play Console → Setup → App integrity → App signing key certificate**.
+2. Copy that certificate's SHA-1 and SHA-256 fingerprints into the Firebase
+   Android app. Do not substitute the upload-key certificate: Google Play signs
+   the APKs installed by users with the app-signing key.
+3. Download the refreshed `google-services.json`, replace the encrypted GitHub
+   secret, and run CI plus the signed release workflow again.
+4. Install the Play-generated build from an internal track and verify Google
+   Sign-In on at least one real device before production rollout.
+
+If the signing certificate changes and Firebase is not updated, Google Sign-In
+will fail even when the Flutter code and Firebase provider are otherwise valid.
+
 ## Build and verify
 
 For a controlled local signing environment, create ignored
