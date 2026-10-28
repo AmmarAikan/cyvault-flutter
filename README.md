@@ -74,6 +74,7 @@ docs                 architecture, tutorials, security and release guides
 ## Documentation
 
 - [Architecture](docs/ARCHITECTURE.md)
+- [Architecture decision records](docs/adr/README.md)
 - [Security model](docs/SECURITY_MODEL.md) and [threat model](docs/THREAT_MODEL.md)
 - [Testing evidence](docs/TESTING.md)
 - [English user guide](docs/USER_GUIDE_EN.md) / [Arabic guide](docs/USER_GUIDE_AR.md)

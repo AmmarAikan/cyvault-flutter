@@ -8,6 +8,8 @@
   RTL content, large values, landscape layouts, and accessibility text scaling.
 - Added UI regression coverage across the required width, locale, orientation,
   and text-scale matrix.
+- Proposed the v2 Google identity, end-to-end encrypted synchronization, and
+  selected-entry sharing architecture; no cloud service is configured yet.
 
 ## 1.0.0 - 2026-10-28
 
