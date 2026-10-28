@@ -97,4 +97,17 @@
   "all": "الكل",
   "securityEvents": "سجل أحداث الأمان",
   "noEvents": "لا توجد أحداث أمان بعد."
+  ,"changeMasterPassword": "تغيير كلمة المرور الرئيسية"
+  ,"currentMasterPassword": "كلمة المرور الرئيسية الحالية"
+  ,"newMasterPassword": "كلمة المرور الرئيسية الجديدة"
+  ,"masterPasswordChanged": "تم تغيير الكلمة الرئيسية دون إعادة تشفير السجلات."
+  ,"eventUnlockSuccess": "تم فتح الخزنة"
+  ,"eventUnlockFailure": "فشل فتح الخزنة"
+  ,"eventManualLock": "قفل يدوي"
+  ,"eventBackgroundLock": "قفل عند الانتقال للخلفية"
+  ,"eventTimeoutLock": "قفل بسبب عدم النشاط"
+  ,"eventBackupExport": "تم تصدير نسخة احتياطية"
+  ,"eventBackupImport": "تم استيراد نسخة احتياطية"
+  ,"eventBreachCheck": "فحص تسريب"
+  ,"eventMasterPasswordChange": "تم تغيير الكلمة الرئيسية"
 }

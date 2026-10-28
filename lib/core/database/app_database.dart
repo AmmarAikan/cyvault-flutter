@@ -73,6 +73,7 @@ class AppDatabase extends _$AppDatabase {
       'backup_export',
       'backup_import',
       'breach_check',
+      'master_password_change',
     };
     if (!allowed.contains(kind)) throw ArgumentError.value(kind, 'kind');
     await into(securityEvents).insert(
@@ -83,6 +84,14 @@ class AppDatabase extends _$AppDatabase {
       ),
     );
   }
+
+  Future<List<SecurityEvent>> recentSecurityEvents({int limit = 20}) =>
+      (select(securityEvents)
+            ..orderBy(<OrderingTerm Function(SecurityEvents)>[
+              (table) => OrderingTerm.desc(table.occurredAt),
+            ])
+            ..limit(limit))
+          .get();
 }
 
 QueryExecutor _openConnection() => LazyDatabase(() async {

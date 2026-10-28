@@ -305,4 +305,44 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noEvents => 'لا توجد أحداث أمان بعد.';
+
+  @override
+  String get changeMasterPassword => 'تغيير كلمة المرور الرئيسية';
+
+  @override
+  String get currentMasterPassword => 'كلمة المرور الرئيسية الحالية';
+
+  @override
+  String get newMasterPassword => 'كلمة المرور الرئيسية الجديدة';
+
+  @override
+  String get masterPasswordChanged =>
+      'تم تغيير الكلمة الرئيسية دون إعادة تشفير السجلات.';
+
+  @override
+  String get eventUnlockSuccess => 'تم فتح الخزنة';
+
+  @override
+  String get eventUnlockFailure => 'فشل فتح الخزنة';
+
+  @override
+  String get eventManualLock => 'قفل يدوي';
+
+  @override
+  String get eventBackgroundLock => 'قفل عند الانتقال للخلفية';
+
+  @override
+  String get eventTimeoutLock => 'قفل بسبب عدم النشاط';
+
+  @override
+  String get eventBackupExport => 'تم تصدير نسخة احتياطية';
+
+  @override
+  String get eventBackupImport => 'تم استيراد نسخة احتياطية';
+
+  @override
+  String get eventBreachCheck => 'فحص تسريب';
+
+  @override
+  String get eventMasterPasswordChange => 'تم تغيير الكلمة الرئيسية';
 }

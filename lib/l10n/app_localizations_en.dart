@@ -306,4 +306,44 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noEvents => 'No security events yet.';
+
+  @override
+  String get changeMasterPassword => 'Change master password';
+
+  @override
+  String get currentMasterPassword => 'Current master password';
+
+  @override
+  String get newMasterPassword => 'New master password';
+
+  @override
+  String get masterPasswordChanged =>
+      'Master password changed without re-encrypting records.';
+
+  @override
+  String get eventUnlockSuccess => 'Vault unlocked';
+
+  @override
+  String get eventUnlockFailure => 'Failed unlock';
+
+  @override
+  String get eventManualLock => 'Manual lock';
+
+  @override
+  String get eventBackgroundLock => 'Background lock';
+
+  @override
+  String get eventTimeoutLock => 'Inactivity lock';
+
+  @override
+  String get eventBackupExport => 'Backup exported';
+
+  @override
+  String get eventBackupImport => 'Backup imported';
+
+  @override
+  String get eventBreachCheck => 'Breach check';
+
+  @override
+  String get eventMasterPasswordChange => 'Master password changed';
 }

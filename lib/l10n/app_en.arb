@@ -97,4 +97,17 @@
   "all": "All",
   "securityEvents": "Security events",
   "noEvents": "No security events yet."
+  ,"changeMasterPassword": "Change master password"
+  ,"currentMasterPassword": "Current master password"
+  ,"newMasterPassword": "New master password"
+  ,"masterPasswordChanged": "Master password changed without re-encrypting records."
+  ,"eventUnlockSuccess": "Vault unlocked"
+  ,"eventUnlockFailure": "Failed unlock"
+  ,"eventManualLock": "Manual lock"
+  ,"eventBackgroundLock": "Background lock"
+  ,"eventTimeoutLock": "Inactivity lock"
+  ,"eventBackupExport": "Backup exported"
+  ,"eventBackupImport": "Backup imported"
+  ,"eventBreachCheck": "Breach check"
+  ,"eventMasterPasswordChange": "Master password changed"
 }

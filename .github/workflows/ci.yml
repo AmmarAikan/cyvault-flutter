@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.47.8
+          channel: stable
+          cache: true
+      - name: Resolve locked dependencies
+        run: flutter pub get --enforce-lockfile
+      - name: Verify formatting
+        run: dart format --output=none --set-exit-if-changed .
+      - name: Verify generated Drift code
+        run: |
+          dart run build_runner build
+          git diff --exit-code -- lib/core/database/app_database.g.dart
+      - name: Static analysis
+        run: flutter analyze --fatal-infos
+      - name: Tests and coverage
+        run: flutter test --coverage
+      - name: Security-domain coverage gate
+        run: ./tool/check_coverage.sh
+      - name: Tracked-file secret scan
+        run: ./tool/secret_scan.sh
+      - name: Android debug APK
+        run: flutter build apk --debug
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cyvault-debug-apk-${{ github.sha }}
+          path: build/app/outputs/flutter-apk/app-debug.apk
+          retention-days: 14
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cyvault-coverage-${{ github.sha }}
+          path: coverage/lcov.info
+          retention-days: 14
+          if-no-files-found: error

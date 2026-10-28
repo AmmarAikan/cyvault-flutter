@@ -1,7 +1,17 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
+}
+
+val releasePropertiesFile = rootProject.file("key.properties")
+val releaseProperties = Properties().apply {
+    if (releasePropertiesFile.exists()) {
+        load(FileInputStream(releasePropertiesFile))
+    }
 }
 
 android {
@@ -28,11 +38,26 @@ android {
         versionName = flutter.versionName
     }
 
+    signingConfigs {
+        if (releasePropertiesFile.exists()) {
+            create("release") {
+                keyAlias = releaseProperties.getProperty("keyAlias")
+                keyPassword = releaseProperties.getProperty("keyPassword")
+                storeFile = file(releaseProperties.getProperty("storeFile"))
+                storePassword = releaseProperties.getProperty("storePassword")
+            }
+        }
+    }
+
     buildTypes {
         release {
-            // Verification-only local release build. The documented CI release
-            // workflow supplies a private upload key and never commits it.
-            signingConfig = signingConfigs.getByName("debug")
+            // A local build without key.properties is verification-only and
+            // uses the debug key. CI release builds inject an upload key.
+            signingConfig = if (releasePropertiesFile.exists()) {
+                signingConfigs.getByName("release")
+            } else {
+                signingConfigs.getByName("debug")
+            }
         }
     }
 }

@@ -673,6 +673,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No security events yet.'**
   String get noEvents;
+
+  /// No description provided for @changeMasterPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Change master password'**
+  String get changeMasterPassword;
+
+  /// No description provided for @currentMasterPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Current master password'**
+  String get currentMasterPassword;
+
+  /// No description provided for @newMasterPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'New master password'**
+  String get newMasterPassword;
+
+  /// No description provided for @masterPasswordChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Master password changed without re-encrypting records.'**
+  String get masterPasswordChanged;
+
+  /// No description provided for @eventUnlockSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Vault unlocked'**
+  String get eventUnlockSuccess;
+
+  /// No description provided for @eventUnlockFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed unlock'**
+  String get eventUnlockFailure;
+
+  /// No description provided for @eventManualLock.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual lock'**
+  String get eventManualLock;
+
+  /// No description provided for @eventBackgroundLock.
+  ///
+  /// In en, this message translates to:
+  /// **'Background lock'**
+  String get eventBackgroundLock;
+
+  /// No description provided for @eventTimeoutLock.
+  ///
+  /// In en, this message translates to:
+  /// **'Inactivity lock'**
+  String get eventTimeoutLock;
+
+  /// No description provided for @eventBackupExport.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup exported'**
+  String get eventBackupExport;
+
+  /// No description provided for @eventBackupImport.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup imported'**
+  String get eventBackupImport;
+
+  /// No description provided for @eventBreachCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Breach check'**
+  String get eventBreachCheck;
+
+  /// No description provided for @eventMasterPasswordChange.
+  ///
+  /// In en, this message translates to:
+  /// **'Master password changed'**
+  String get eventMasterPasswordChange;
 }
 
 class _AppLocalizationsDelegate
