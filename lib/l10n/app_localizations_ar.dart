@@ -47,6 +47,34 @@ class AppLocalizationsAr extends AppLocalizations {
       'لا يمكن لساي فولت استعادة كلمة مرور رئيسية منسية. احتفظ بنسخة احتياطية مشفرة منفصلة.';
 
   @override
+  String get googleAccount => 'حساب Google';
+
+  @override
+  String get googleAccountPurpose =>
+      'هوية اختيارية للمزامنة والمشاركة المشفرتين.';
+
+  @override
+  String get googleAccountConnected => 'حساب Google متصل';
+
+  @override
+  String get googleAccountUnavailable =>
+      'الهوية السحابية غير متاحة. خزنتك المحلية ما زالت تعمل.';
+
+  @override
+  String get googleAccountSecurityNotice =>
+      'حساب Google لا يستبدل كلمة المرور الرئيسية ولا يمكنه فك تشفير هذه الخزنة.';
+
+  @override
+  String get signInWithGoogle => 'تسجيل الدخول باستخدام Google';
+
+  @override
+  String get signOutGoogle => 'تسجيل الخروج من Google';
+
+  @override
+  String get googleSignInFailed =>
+      'لم يكتمل تسجيل الدخول إلى Google. تحقق من الحساب وحاول مجددًا.';
+
+  @override
   String get dashboard => 'لوحة المعلومات';
 
   @override

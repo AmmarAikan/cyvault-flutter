@@ -49,6 +49,34 @@ class AppLocalizationsEn extends AppLocalizations {
       'CyVault cannot recover a forgotten master password. Keep a separate encrypted backup.';
 
   @override
+  String get googleAccount => 'Google account';
+
+  @override
+  String get googleAccountPurpose =>
+      'Optional identity for encrypted sync and sharing.';
+
+  @override
+  String get googleAccountConnected => 'Google account connected';
+
+  @override
+  String get googleAccountUnavailable =>
+      'Cloud identity is unavailable. Your local vault still works.';
+
+  @override
+  String get googleAccountSecurityNotice =>
+      'Your Google account never replaces the master password and cannot decrypt this vault.';
+
+  @override
+  String get signInWithGoogle => 'Sign in with Google';
+
+  @override
+  String get signOutGoogle => 'Sign out of Google';
+
+  @override
+  String get googleSignInFailed =>
+      'Google sign-in did not complete. Check the account and try again.';
+
+  @override
   String get dashboard => 'Dashboard';
 
   @override

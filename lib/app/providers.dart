@@ -7,6 +7,7 @@ import '../core/security/vault_session.dart';
 import '../core/settings/app_settings.dart';
 import '../features/breach_check/data/breach_service.dart';
 import '../features/breach_check/data/drift_breach_cache.dart';
+import '../features/cloud_identity/data/cloud_identity.dart';
 import '../features/vault/data/vault_repository.dart';
 import '../features/vault/presentation/vault_controller.dart';
 import 'dependencies.dart';
@@ -21,6 +22,10 @@ final sessionProvider = ChangeNotifierProvider<VaultSession>(
 
 final settingsProvider = ChangeNotifierProvider<AppSettings>(
   (ref) => ref.watch(dependenciesProvider).settings,
+);
+
+final cloudIdentityProvider = ChangeNotifierProvider<CloudIdentity>(
+  (ref) => ref.watch(dependenciesProvider).cloudIdentity,
 );
 
 final vaultRepositoryProvider = Provider<VaultRepository>((ref) {

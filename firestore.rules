@@ -1,0 +1,12 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Gate C replaces this bootstrap deny-all policy with schema-specific,
+    // owner-bound rules that are validated in the Firebase emulator before
+    // production deployment.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

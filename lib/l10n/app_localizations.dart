@@ -170,6 +170,54 @@ abstract class AppLocalizations {
   /// **'CyVault cannot recover a forgotten master password. Keep a separate encrypted backup.'**
   String get securityNotice;
 
+  /// No description provided for @googleAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Google account'**
+  String get googleAccount;
+
+  /// No description provided for @googleAccountPurpose.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional identity for encrypted sync and sharing.'**
+  String get googleAccountPurpose;
+
+  /// No description provided for @googleAccountConnected.
+  ///
+  /// In en, this message translates to:
+  /// **'Google account connected'**
+  String get googleAccountConnected;
+
+  /// No description provided for @googleAccountUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Cloud identity is unavailable. Your local vault still works.'**
+  String get googleAccountUnavailable;
+
+  /// No description provided for @googleAccountSecurityNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Google account never replaces the master password and cannot decrypt this vault.'**
+  String get googleAccountSecurityNotice;
+
+  /// No description provided for @signInWithGoogle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in with Google'**
+  String get signInWithGoogle;
+
+  /// No description provided for @signOutGoogle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign out of Google'**
+  String get signOutGoogle;
+
+  /// No description provided for @googleSignInFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Google sign-in did not complete. Check the account and try again.'**
+  String get googleSignInFailed;
+
   /// No description provided for @dashboard.
   ///
   /// In en, this message translates to:
