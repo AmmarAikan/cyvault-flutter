@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="CyVault shield and keyhole">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2457D6"/><stop offset="1" stop-color="#00A899"/></linearGradient></defs>
+  <rect width="512" height="512" rx="112" fill="#071B33"/>
+  <path d="M256 70 414 132v116c0 94-61 165-158 202C159 413 98 342 98 248V132z" fill="url(#g)"/>
+  <path d="M256 112 370 157v91c0 70-42 124-114 157-72-33-114-87-114-157v-91z" fill="#071B33" opacity=".88"/>
+  <circle cx="256" cy="239" r="49" fill="#F3F7FF"/><path d="M234 271h44l18 86h-80z" fill="#F3F7FF"/>
+</svg>
