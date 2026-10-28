@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../app/providers.dart';
+import '../../../core/security/vault_session.dart';
 import '../../../l10n/app_localizations.dart';
 import '../data/cloud_identity.dart';
 
@@ -72,7 +73,10 @@ final class CloudAccountCard extends ConsumerWidget {
             else
               OutlinedButton.icon(
                 key: const ValueKey<String>('google-sign-out'),
-                onPressed: () => identity.signOut(),
+                onPressed: () async {
+                  await ref.read(sessionProvider).lock(LockReason.manual);
+                  await identity.signOut();
+                },
                 icon: const Icon(Icons.logout),
                 label: Text(strings.signOutGoogle),
               ),
