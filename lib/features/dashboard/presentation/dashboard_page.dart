@@ -15,50 +15,34 @@ final class DashboardPage extends ConsumerWidget {
     final strings = AppLocalizations.of(context);
     final vault = ref.watch(vaultControllerProvider);
     final health = PasswordHealth.analyze(vault.entries);
-    final cards = <(IconData, String, int)>[
-      (Icons.lock_outline, strings.items, health.total),
-      (Icons.warning_amber, strings.breached, health.breached),
-      (
-        Icons.repeat,
-        strings.favorites,
-        vault.entries.where((entry) => entry.favorite).length,
+    final cards = <DashboardMetric>[
+      DashboardMetric(
+        icon: Icons.lock_outline,
+        label: strings.items,
+        value: health.total.toString(),
       ),
-      (Icons.monitor_heart_outlined, strings.averageRisk, health.averageRisk),
+      DashboardMetric(
+        icon: Icons.warning_amber,
+        label: strings.breached,
+        value: health.breached.toString(),
+      ),
+      DashboardMetric(
+        icon: Icons.repeat,
+        label: strings.favorites,
+        value: vault.entries.where((entry) => entry.favorite).length.toString(),
+      ),
+      DashboardMetric(
+        icon: Icons.monitor_heart_outlined,
+        label: strings.averageRisk,
+        value: health.averageRisk.toString(),
+      ),
     ];
     return ListView(
       padding: const EdgeInsets.all(16),
       children: <Widget>[
         Text(strings.tagline, style: Theme.of(context).textTheme.headlineSmall),
         const SizedBox(height: 16),
-        GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 260,
-            childAspectRatio: 1.7,
-          ),
-          itemCount: cards.length,
-          itemBuilder: (context, index) {
-            final card = cards[index];
-            return Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Icon(card.$1),
-                    const Spacer(),
-                    Text(
-                      '${card.$3}',
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    ),
-                    Text(card.$2),
-                  ],
-                ),
-              ),
-            );
-          },
-        ),
+        DashboardMetrics(metrics: cards),
         const SizedBox(height: 16),
         FilledButton.tonalIcon(
           onPressed: () async {
@@ -82,4 +66,94 @@ final class DashboardPage extends ConsumerWidget {
       ],
     );
   }
+}
+
+@immutable
+final class DashboardMetric {
+  const DashboardMetric({
+    required this.icon,
+    required this.label,
+    required this.value,
+  });
+
+  final IconData icon;
+  final String label;
+  final String value;
+}
+
+final class DashboardMetrics extends StatelessWidget {
+  const DashboardMetrics({required this.metrics, super.key});
+
+  final List<DashboardMetric> metrics;
+
+  @override
+  Widget build(BuildContext context) => LayoutBuilder(
+    builder: (context, constraints) {
+      const spacing = 8.0;
+      final textScale = MediaQuery.textScalerOf(context).scale(1);
+      final preferredCardWidth = textScale >= 1.8
+          ? 240.0
+          : textScale >= 1.3
+          ? 210.0
+          : 190.0;
+      final columns =
+          ((constraints.maxWidth + spacing) / (preferredCardWidth + spacing))
+              .floor()
+              .clamp(1, 4);
+      final cardWidth =
+          (constraints.maxWidth - spacing * (columns - 1)) / columns;
+      return Wrap(
+        spacing: spacing,
+        runSpacing: spacing,
+        children: <Widget>[
+          for (var index = 0; index < metrics.length; index++)
+            SizedBox(
+              width: cardWidth,
+              child: _MetricCard(
+                key: ValueKey<String>('dashboard-metric-$index'),
+                metric: metrics[index],
+              ),
+            ),
+        ],
+      );
+    },
+  );
+}
+
+final class _MetricCard extends StatelessWidget {
+  const _MetricCard({required this.metric, super.key});
+
+  final DashboardMetric metric;
+
+  @override
+  Widget build(BuildContext context) => Semantics(
+    container: true,
+    label: '${metric.label}: ${metric.value}',
+    child: Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Icon(metric.icon),
+            const SizedBox(height: 16),
+            SizedBox(
+              width: double.infinity,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                alignment: AlignmentDirectional.centerStart,
+                child: Text(
+                  metric.value,
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(metric.label),
+          ],
+        ),
+      ),
+    ),
+  );
 }
