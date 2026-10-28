@@ -16,8 +16,13 @@ jobs:
     timeout-minutes: 40
     environment: production
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - uses: actions/checkout@v7
+      - name: Reclaim runner disk for Android native toolchains
+        run: |
+          sudo rm -rf /usr/share/dotnet /opt/ghc /usr/local/.ghcup
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+          df -h /
+      - uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: '17'
@@ -54,7 +59,7 @@ jobs:
           flutter build apk --release
           sha256sum build/app/outputs/bundle/release/app-release.aab > build/app/outputs/bundle/release/SHA256SUMS
           sha256sum build/app/outputs/flutter-apk/app-release.apk >> build/app/outputs/bundle/release/SHA256SUMS
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: cyvault-signed-android-${{ github.sha }}
           path: |
