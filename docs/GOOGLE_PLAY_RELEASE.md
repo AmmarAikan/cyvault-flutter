@@ -47,7 +47,10 @@ local copy.
 
 Google Sign-In authorizes a Firebase UID only. It does not replace the master
 password, recover it, or decrypt the vault. The Ubuntu debug certificate is
-registered solely for controlled tester APKs. Before publishing:
+registered solely for controlled tester APKs. CI restores that same test key
+from `ANDROID_DEBUG_KEYSTORE_BASE64`, so GitHub's APK fingerprint is stable;
+this key must never be treated as a production or Play upload key. Before
+publishing:
 
 1. Open **Play Console → Setup → App integrity → App signing key certificate**.
 2. Copy that certificate's SHA-1 and SHA-256 fingerprints into the Firebase
