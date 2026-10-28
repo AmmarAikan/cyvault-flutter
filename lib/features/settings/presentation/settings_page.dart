@@ -9,6 +9,7 @@ import 'package:share_plus/share_plus.dart';
 
 import '../../../app/providers.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../cloud_identity/presentation/cloud_account_card.dart';
 import '../../vault/data/vault_repository.dart';
 
 final class SettingsPage extends ConsumerWidget {
@@ -236,6 +237,8 @@ final class SettingsPage extends ConsumerWidget {
     return ListView(
       padding: const EdgeInsets.all(12),
       children: <Widget>[
+        const CloudAccountCard(),
+        const SizedBox(height: 16),
         Text(strings.theme, style: Theme.of(context).textTheme.titleLarge),
         SegmentedButton<ThemeMode>(
           segments: <ButtonSegment<ThemeMode>>[

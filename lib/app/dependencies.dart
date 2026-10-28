@@ -10,6 +10,7 @@ import '../core/security/clipboard_guard.dart';
 import '../core/security/vault_session.dart';
 import '../core/settings/app_settings.dart';
 import '../features/backup/data/backup_service.dart';
+import '../features/cloud_identity/data/cloud_identity.dart';
 
 final class AppDependencies {
   AppDependencies._({
@@ -22,6 +23,7 @@ final class AppDependencies {
     required this.clipboard,
     required this.backups,
     required this.httpClient,
+    required this.cloudIdentity,
   });
 
   @visibleForTesting
@@ -35,6 +37,7 @@ final class AppDependencies {
     required ClipboardGuard clipboard,
     required BackupService backups,
     required http.Client httpClient,
+    required CloudIdentity cloudIdentity,
   }) = AppDependencies._;
 
   final AppDatabase database;
@@ -46,8 +49,9 @@ final class AppDependencies {
   final ClipboardGuard clipboard;
   final BackupService backups;
   final http.Client httpClient;
+  final CloudIdentity cloudIdentity;
 
-  static Future<AppDependencies> create() async {
+  static Future<AppDependencies> create(CloudIdentity cloudIdentity) async {
     final database = AppDatabase();
     final crypto = CryptoService();
     final masterPasswords = MasterPasswordService(
@@ -66,12 +70,14 @@ final class AppDependencies {
       clipboard: ClipboardGuard(),
       backups: BackupService(crypto),
       httpClient: http.Client(),
+      cloudIdentity: cloudIdentity,
     );
   }
 
   Future<void> dispose() async {
     clipboard.dispose();
     httpClient.close();
+    cloudIdentity.dispose();
     session.dispose();
     settings.dispose();
     await database.close();

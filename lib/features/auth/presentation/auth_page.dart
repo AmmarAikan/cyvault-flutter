@@ -5,6 +5,7 @@ import '../../../app/providers.dart';
 import '../../../core/security/screen_protection.dart';
 import '../../../core/security/vault_session.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../cloud_identity/presentation/cloud_account_card.dart';
 
 final class AuthPage extends ConsumerStatefulWidget {
   const AuthPage({super.key});
@@ -157,6 +158,8 @@ final class _AuthPageState extends ConsumerState<AuthPage> {
                               : strings.continueLabel,
                         ),
                       ),
+                      const SizedBox(height: 24),
+                      const CloudAccountCard(),
                     ],
                   ),
                 ),
