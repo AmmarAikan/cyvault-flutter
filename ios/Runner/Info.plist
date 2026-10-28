@@ -7,7 +7,9 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Cyvault</string>
+	<string>CyVault</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>CyVault uses Face ID only as an optional second confirmation after the master password.</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>

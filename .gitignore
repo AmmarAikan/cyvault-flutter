@@ -77,7 +77,7 @@ xcuserdata/
 
 # Generated reports and release artifacts
 lcov.info
-reports/
+/reports/
 *.apk
 *.aab
 *.ipa

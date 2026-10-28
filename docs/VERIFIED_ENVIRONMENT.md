@@ -23,6 +23,8 @@ Audit recorded on 2026-10-28 before project or toolchain changes.
 - OpenJDK 17.0.20.1.
 - Android command-line tools 23.0 (`android` CLI 1.1.16717390).
 - Android SDK platform 36, build-tools 36.0.0 and platform-tools/ADB 37.0.1.
+- Gradle additionally resolved Android platforms 35/34 and CMake 3.22.1 for
+  plugin/native SQLite compilation; all remain in the Ubuntu SDK cache.
 - All Android SDK licenses accepted; `flutter doctor -v` passes the Android
   toolchain. Chrome and Linux desktop warnings are out of project scope.
 
