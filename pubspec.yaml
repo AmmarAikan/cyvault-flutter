@@ -12,7 +12,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   cryptography: 2.9.0
-  cupertino_icons: 1.0.9
+  cupertino_icons: 2.0.0
   drift: 2.35.3
   # 2.x targets the separate material_ui package; 1.9 is the current
   # flutter/material-compatible line for this verified Flutter toolchain.
