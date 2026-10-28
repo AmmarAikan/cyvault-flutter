@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased
+
+- Replaced icon-only secondary navigation with visible, localized, scroll-safe
+  labels in phone and wide layouts.
+- Made Dashboard metrics intrinsically sized and responsive to narrow screens,
+  RTL content, large values, landscape layouts, and accessibility text scaling.
+- Added UI regression coverage across the required width, locale, orientation,
+  and text-scale matrix.
+
 ## 1.0.0 - 2026-10-28
 
 - Initial offline-first encrypted vault for Android and iOS source targets.
