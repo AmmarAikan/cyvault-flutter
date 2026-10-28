@@ -45,9 +45,7 @@ final class CloudAccountCard extends ConsumerWidget {
                 padding: const EdgeInsets.only(bottom: 12),
                 child: Text(
                   strings.googleSignInFailed,
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.error,
-                  ),
+                  style: TextStyle(color: Theme.of(context).colorScheme.error),
                 ),
               ),
             if (account == null)
