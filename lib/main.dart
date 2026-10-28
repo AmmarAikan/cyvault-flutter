@@ -9,7 +9,7 @@ import 'features/cloud_identity/data/cloud_identity.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final CloudIdentity cloudIdentity;
+  late final CloudIdentity cloudIdentity;
   try {
     await Firebase.initializeApp();
     final firebaseIdentity = FirebaseCloudIdentity();

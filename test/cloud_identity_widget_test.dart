@@ -11,13 +11,10 @@ void main() {
     tester,
   ) async {
     final identity = _FakeCloudIdentity();
-    addTearDown(identity.dispose);
 
     await tester.pumpWidget(
       ProviderScope(
-        overrides: <Override>[
-          cloudIdentityProvider.overrideWithValue(identity),
-        ],
+        overrides: [cloudIdentityProvider.overrideWith((ref) => identity)],
         child: const MaterialApp(
           locale: Locale('en'),
           supportedLocales: AppLocalizations.supportedLocales,
