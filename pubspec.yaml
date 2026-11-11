@@ -46,7 +46,7 @@ dev_dependencies:
   integration_test:
     sdk: flutter
   mocktail: 1.0.5
-  sqlite3: 3.8.0
+  sqlite3: 3.9.1
 
 flutter:
   uses-material-design: true
