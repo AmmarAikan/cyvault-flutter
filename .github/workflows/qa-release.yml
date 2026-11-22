@@ -1,0 +1,78 @@
+name: Persistent QA APK release
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: QA release tag (for example, v1.0.0-qa.1)
+        required: true
+        default: v1.0.0-qa.1
+
+permissions:
+  contents: write
+
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Reclaim runner disk for Android native toolchains
+        run: |
+          sudo rm -rf /usr/share/dotnet /opt/ghc /usr/local/.ghcup
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+          df -h /
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.47.8
+          channel: stable
+          cache: true
+      - name: Restore Firebase Android configuration
+        env:
+          FIREBASE_ANDROID_CONFIG_BASE64: ${{ secrets.FIREBASE_ANDROID_CONFIG_BASE64 }}
+        run: |
+          test -n "$FIREBASE_ANDROID_CONFIG_BASE64"
+          printf '%s' "$FIREBASE_ANDROID_CONFIG_BASE64" | base64 --decode > android/app/google-services.json
+      - name: Restore stable QA signing certificate
+        env:
+          ANDROID_DEBUG_KEYSTORE_BASE64: ${{ secrets.ANDROID_DEBUG_KEYSTORE_BASE64 }}
+        run: |
+          test -n "$ANDROID_DEBUG_KEYSTORE_BASE64"
+          mkdir -p "$HOME/.android"
+          printf '%s' "$ANDROID_DEBUG_KEYSTORE_BASE64" | base64 --decode > "$HOME/.android/debug.keystore"
+          chmod 600 "$HOME/.android/debug.keystore"
+      - name: Resolve and verify source
+        run: |
+          flutter pub get --enforce-lockfile
+          dart format --output=none --set-exit-if-changed .
+          flutter analyze --fatal-infos
+          flutter test
+      - name: Build QA APK and checksum
+        run: |
+          flutter build apk --debug
+          mkdir -p release
+          cp build/app/outputs/flutter-apk/app-debug.apk release/CyVault-v1.0.0-qa.apk
+          sha256sum release/CyVault-v1.0.0-qa.apk > release/SHA256SUMS.txt
+      - name: Create permanent prerelease
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.release_tag }}
+        run: |
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release upload "$RELEASE_TAG" release/CyVault-v1.0.0-qa.apk release/SHA256SUMS.txt --clobber
+          else
+            gh release create "$RELEASE_TAG" \
+              release/CyVault-v1.0.0-qa.apk \
+              release/SHA256SUMS.txt \
+              --target "$GITHUB_SHA" \
+              --title "CyVault 1.0.0 QA" \
+              --notes "Installable QA build of CyVault 1.0.0. This APK uses the stable QA/debug signing certificate and is not a Google Play production release." \
+              --prerelease
+          fi
